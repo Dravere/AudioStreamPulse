@@ -3,6 +3,7 @@
 import datetime
 import json
 import os
+import os.path
 import sys
 import subprocess
 
@@ -12,7 +13,7 @@ import subprocess
 # load-module module-remap-source source_name=AllAudio master=MIXER_NAME.monitor
 
 # Storage location for config file
-CONFIG_FILE = '~/.config/AudioStreamPulse/config.json'
+CONFIG_FILE = os.path.expanduser('~/.config/AudioStreamPulse/config.json')
 
 # Storage location for module ids to be used with stop. Recommended to be in /tmp, so it is deleted upon restart.
 SETUP_CONFIG_FILE = '/tmp/audiostreampulse.json'
@@ -167,7 +168,7 @@ def reset():
 
 
 def main(command):
-    os.makedirs('~/.config/AudioStreamPulse', exist_ok=True)
+    os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
     if command == 'start':
         start()
     elif command == 'stop':
